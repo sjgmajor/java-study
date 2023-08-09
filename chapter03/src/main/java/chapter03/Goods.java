@@ -5,5 +5,4 @@ public class Goods {
 	int price;
 	int countStock;
 	int countSold;
-	
 }
