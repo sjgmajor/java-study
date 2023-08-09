@@ -2,9 +2,9 @@ package prob02;
 
 public class Goods {
 	
-	public String name;
-	public int price;
-	public int count;
+	private String name;
+	private int price;
+	private int count;
 	
 	public Goods(String name, int price, int count){
 		this.name = name;

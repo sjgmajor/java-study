@@ -25,9 +25,10 @@ public class GoodsApp {
 		
 		// 상품 출력
 		for(Goods i : goods) {
-		System.out.println(i.getName() + "(가격: " + i.getPrice() + "원)이 " + i.getCount() + "개 입고 되었습니다.");
+		System.out.println(i.getName() + "(가격: " + 
+		i.getPrice() + "원)이 " + 
+	    i.getCount() + "개 입고 되었습니다.");
 		}
-		
 		// 자원정리
 		scanner.close();
 	}
