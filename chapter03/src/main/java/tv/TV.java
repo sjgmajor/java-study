@@ -23,7 +23,7 @@ public class TV {
 
 	public void channel(int channel) {
 		if(power) {
-			this.channel = checkChannel(channel);
+			this.channel = checkRange(channel, MAX_CHANNEL, MIN_CHANNEL);
 		}
 		else {
 			powerOff();
@@ -37,7 +37,7 @@ public class TV {
 	
 	public void volume(int volume) {
 		if(power) {
-			this.volume = checkVolume(volume);
+			this.volume = checkRange(volume, MAX_VOLUME, MIN_VOLUME);
 		}
 		else {
 			powerOff();
@@ -57,26 +57,15 @@ public class TV {
 				);
 	}
 	
-	public int checkChannel(int channel) {
+	public int checkRange(int compare, int max, int min) {
 		
-		if(channel > MAX_CHANNEL) {
-			channel = channel - MAX_CHANNEL + MIN_CHANNEL - 1;
+		if(compare > max) {
+			compare = min;
 		}
-		else if(channel < MIN_CHANNEL){
-			channel = MAX_CHANNEL + channel + MIN_CHANNEL - 1;
+		else if(compare < min){
+			compare = max;
 		}
-		return channel;
-	}
-
-	public int checkVolume(int volume) {		
-
-		if(volume > MAX_VOLUME) {
-			volume = MAX_VOLUME;
-		}
-		else if(volume < MIN_VOLUME){
-			volume = MIN_VOLUME;
-		}
-		return volume;
+		return compare;
 	}
 	
 	public void powerOff() {
