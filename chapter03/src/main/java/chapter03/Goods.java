@@ -15,6 +15,14 @@ public class Goods {
 	}
 	
 	
+	public Goods(String name, int price, int countStock, int countSold) {
+		this.name = name;
+		this.price = price;
+		this.countStock = countStock;
+		this.countSold = countSold;
+	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -43,4 +51,19 @@ public class Goods {
 		this.countSold = countSold;
 	}
 	
-}
+	
+
+	public int calDiscountPrice(double discountPrice) {
+		return (int)(discountPrice * price);
+	}
+
+
+	public void showInfo() {
+		System.out.println(
+				"상품이름: " + getName() + 
+				", 가격: " + getPrice() + 
+				", 재고개수: " + getCountStock() +
+				", 팔린 개수: " + getCountSold() );
+		
+	}
+	}

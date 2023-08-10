@@ -23,11 +23,18 @@ public class GoodsApp {
 		//countOfGoods = 4
 		
 		System.out.println(Goods.countOfGoods);
+
+		camera.showInfo();
+		camera.setPrice(500000);
+		int discountPrice = camera.calDiscountPrice(0.5);
+		System.out.println(discountPrice);
 		
-		System.out.println(
-				"상품이름: " + camera.getName() + 
-				", 가격: " + camera.getPrice() + 
-				", 재고개수: " + camera.getCountStock() +
-				", 팔린 개수: " + camera.getCountSold() );
+		
+		Goods tv = new Goods("TV", 400000, 10, 20);
+		tv.showInfo();
+		
+		
+		
 	}
+		
 }
