@@ -10,21 +10,19 @@ public class Song {
 	
 	
 	public Song(String title, String album, String composer, String artist, int track, int year) {
-		this.title = title;
-		this.album = album;
-		this.composer = composer;
-		this.artist = artist;
-		this.track = track;
-		this.year = year;
-		
-		System.out.println(".... some code1");
-		System.out.println(".... some code2");
-		System.out.println(".... some code3");
-		System.out.println(".... some code4");
-		System.out.println(".... some code5");
+//		this.title = title;
+//		this.album = album;
+//		this.composer = composer;
+//		this.artist = artist;
+//		this.track = track;
+//		this.year = year;
+//		
+//		System.out.println(".... some code1");
+//		System.out.println(".... some code2");
+//		System.out.println(".... some code3");
+//		System.out.println(".... some code4");
+//		System.out.println(".... some code5");
 	}
-	
-	
 	
 	public Song(String title, String artist) {
 //		this.title = title;
