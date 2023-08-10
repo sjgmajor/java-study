@@ -13,7 +13,6 @@ public class CurrencyConverter {
 	}
 
 	public static double toKRW(double dollar) {
-		// TODO Auto-generated method stub
 		return (double) (dollar * rate);
 	}
 

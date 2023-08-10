@@ -1,4 +1,6 @@
-package paint;
+package com.poscodx.paint.point;
+
+import com.poscodx.paint.i.Drawable;
 
 public class Point implements Drawable{
 	
@@ -36,7 +38,7 @@ public class Point implements Drawable{
 	public void show(boolean visible) {
 		if(visible) {
 			show();
-		} 
+		}
 		else {
 			System.out.println("점[x=" + x + ",y=" + y +"]을 지웠습니다");
 		}
