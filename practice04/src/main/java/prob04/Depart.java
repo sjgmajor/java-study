@@ -19,7 +19,7 @@ public class Depart extends Employee {
 
 	@Override
 	public void getInformation() {
-		System.out.println("이름: " + getName() + " 연봉: " + getSalary() + " 부서: " + department);
+		System.out.println("이름:" + getName() + " 연봉:" + getSalary() + " 부서: " + department);
 	}
 	
 }

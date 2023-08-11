@@ -17,7 +17,6 @@ public class FileTest {
 			
 			System.out.println((char)data);
 			
-		
 		} catch (FileNotFoundException e) {
 		        System.out.println("error:" + e);
 		} catch (IOException e) {
@@ -29,7 +28,6 @@ public class FileTest {
 			    } 
 			}catch (IOException e) {
 				e.printStackTrace();
-			
 		}
 		  
 	}

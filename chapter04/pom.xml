@@ -7,9 +7,9 @@
 		<artifactId>javastudy</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>practice04</artifactId>
+	<artifactId>chapter04</artifactId>
 	
 	<build>
-		<finalName>practoce04</finalName>
+		<finalName>chpater04</finalName>
 	</build>
 </project>

@@ -2,6 +2,6 @@ package prob6;
 
 public interface Resizable {
 
-	public void resize(double s);
+	void resize(double s);
 
 }

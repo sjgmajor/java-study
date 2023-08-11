@@ -5,16 +5,15 @@ public class RectTriangle extends Shape implements Resizable {
 	private double width;
 	private double height;
 	
-	public  RectTriangle(int width, int height) {
+	public  RectTriangle(double width, double height) {
 		this.width = width;
 		this.height = height;
 	}
 	
 	@Override
 	public void resize(double s) {
-		this.height = height * s;
-		getArea();
-		getPerimeter();
+		width *= s;
+		height *= s;
 	}
 
 	@Override
