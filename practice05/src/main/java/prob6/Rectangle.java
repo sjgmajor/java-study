@@ -26,5 +26,4 @@ public class Rectangle extends Shape implements Resizable{
 	    height *= s;
 		
 	}
-
 }
