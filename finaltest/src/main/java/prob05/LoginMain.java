@@ -35,7 +35,18 @@ public class LoginMain {
 		}
 	}
 	
-	public static void login(List<User> users, User user ){
-		/* 코드 작성 */
+	public static void login(List<User> users, User user )
+		throws UserNotFoundException, PasswordDismatchException{
+		for(int i = 0; i < users.size(); i++) {
+			String s = users.get(i).getId();
+			String p = users.get(i).getPassword();
+			if(s.equals(user.getId())) {
+				if(p.equals(user.getPassword())){
+					return;
+				}
+				else {throw new PasswordDismatchException();}
+			}
+		}
+		throw new UserNotFoundException();
 	}
 }

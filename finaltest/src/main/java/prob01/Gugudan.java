@@ -48,6 +48,20 @@ public class Gugudan {
 		/* 코드 작성(수정 가능) */
 		final int COUNT_ANSWER_NUMBER = 9;
 		int[] boardNumbers = new int[COUNT_ANSWER_NUMBER];
+			for(int i = 0; i < COUNT_ANSWER_NUMBER; i ++) {
+				int lex = randomize(1, 9);
+				int rex = randomize(1, 9);
+				boardNumbers[i] = lex * rex;
+				for(int j = 0; j < i; j ++) {
+					if(boardNumbers[j] == boardNumbers[j+1]) {
+						int lex1 = randomize(1, 9);
+						int rex1 = randomize(1, 9);
+						boardNumbers[j] = lex1 * rex1;
+					}
+					
+				}
+				
+			}
 		return boardNumbers;
 	}
 }

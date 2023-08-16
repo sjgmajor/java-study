@@ -28,6 +28,19 @@ public class CalcApp {
 			Arithmetic arithmetic = null;
 			
 			/* 코드 작성 */
+			char a = tokens[2].charAt(0);
+			if(a == '+') {
+				arithmetic = new Add();
+			}
+			if(a == '-') {
+				arithmetic = new Sub();
+			}
+			if(a == '*') {
+				arithmetic = new Mul();
+			}
+			if(a == '/') {
+				arithmetic = new Div();
+			}
 			
 			int result = arithmetic.calculate(lValue, rValue);
 			System.out.println( result );
