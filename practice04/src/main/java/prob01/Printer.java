@@ -18,10 +18,10 @@ public class Printer {
 //		System.out.println(string);
 //	}
 	
-//	public <T> void println(T t) {
-//		System.out.println(t);
-//	}
-//	
+	public <T> void println(T t) {
+		System.out.println(t);
+	}
+	
 	public int sum(Integer...nums) {
 		int s = 0;
 		for(Integer i : nums) {
