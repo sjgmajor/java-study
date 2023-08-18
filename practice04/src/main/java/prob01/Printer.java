@@ -22,6 +22,12 @@ public class Printer {
 		System.out.println(t);
 	}
 	
+	
+	// 위와 완전 동일
+//	public void println(Object o) {
+//		System.out.println(o);
+//		}
+	
 	public int sum(Integer...nums) {
 		int s = 0;
 		for(Integer i : nums) {
@@ -35,6 +41,4 @@ public class Printer {
 		System.out.println(t);
 		}
 	}
-
-	
 }
