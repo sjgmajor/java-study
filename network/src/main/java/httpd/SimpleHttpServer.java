@@ -1,7 +1,6 @@
 package httpd;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -18,11 +17,10 @@ public class SimpleHttpServer {
 			serverSocket = new ServerSocket();
 			   
 			// 2. Bind
-			String localhost = InetAddress.getLocalHost().getHostAddress();
-			serverSocket.bind( new InetSocketAddress( localhost, PORT ) );
-			log("bind " + localhost + ":" + PORT);
+			serverSocket.bind( new InetSocketAddress("0.0.0.0", PORT ));
+			log("starts...[port:" + PORT+ "]");
 
-			while (true) {
+			while(true) {
 				// 3. Wait for connecting ( accept )
 				Socket socket = serverSocket.accept();
 

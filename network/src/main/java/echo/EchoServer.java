@@ -6,8 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class EchoServer {
-
-	public static final int PORT = 8001;	
+	public static final int PORT = 7777;
 	
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
@@ -19,25 +18,23 @@ public class EchoServer {
 			log("starts...[port:" + PORT + "]");
 			
 			while(true) {
-				Socket socket = serverSocket.accept();// blocking
+				Socket socket = serverSocket.accept();
 				new EchoRequestHandler(socket).start();
 			}
-	}catch (IOException e) {
-		log("error:" + e);
-	} finally {
-		try {
-			if(serverSocket != null && serverSocket.isClosed()) {
-				serverSocket.close();
-			}
 		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
+			log("error:" + e);
+		} finally {
+			try {
+				if(serverSocket != null && !serverSocket.isClosed()) {
+					serverSocket.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}		
 	}
 	
 	private static void log(String message) {
-		System.out.println("[EchoServer#" + Thread.currentThread() + "] " + message);
+		System.out.println("[EchoServer#" + Thread.currentThread().getId() + "] " + message);
 	}
-
 }

@@ -43,8 +43,8 @@ public class EchoClient {
 					log("closed by server");
 					break;
 				}
-		
-				System.out.print("<" + data);
+				
+				System.out.println("<" + data);
 			}
 		
 		} catch(SocketException e) {
@@ -66,8 +66,6 @@ public class EchoClient {
 	}
 		private static void log(String message) {
 			System.out.println("[EchoClient] " + message);
-	
 	}
-	
 	}
 

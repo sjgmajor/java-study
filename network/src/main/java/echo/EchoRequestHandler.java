@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 public class EchoRequestHandler extends Thread {
-		private Socket socket;
+		public Socket socket;
 		
 	public EchoRequestHandler(Socket socket) {
 		this.socket = socket;
@@ -52,7 +52,7 @@ public class EchoRequestHandler extends Thread {
 			log("error: " + e);
 		} finally {
 			try {
-				if(socket != null && socket.isClosed()) {
+				if(socket != null && !socket.isClosed()) {
 					socket.close();
 				}
 			} catch(IOException e) {
