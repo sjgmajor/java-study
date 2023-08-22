@@ -1,4 +1,4 @@
-package chat;
+package chat.gui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -86,7 +85,6 @@ public class ChatClient {
 	}
 
 	private static void log(String message) {
-		// TODO Auto-generated method stub
 		System.out.println("[클라이언트] " + message);
 	}
 }
