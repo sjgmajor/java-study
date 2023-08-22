@@ -40,6 +40,7 @@ public class TCPClient {
 		String data = "Hello World";
 		os.write(data.getBytes("utf-8"));
 		
+		
 		//5. 읽기
 		byte[] buffer = new byte[256];
 		int readByteCount = is.read(buffer); // blocking
