@@ -46,7 +46,9 @@ public class ChatServerThread extends Thread {
 				       break;
 				   }
 				   userSize = chatUsers.size() + 1;
+				   
 				   // 4. 프로토콜 분석
+				   
 				   String[] tokens = line.split(":");
 				
 				   if( "join".equals(tokens[0]) ) {
