@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 public class ChatWindow {
@@ -123,19 +124,19 @@ public class ChatWindow {
 	}
 	
 	private void finish() {
-		// quit 프로토콜 구현
-//		pw.println("quit");
-//		// exit java(JVM)
-//		try {
-//			if(pw != null) {
-//				pw.close();
-//			}
-//			if(br != null) {
-//				br.close();
-//			}
-//		} catch(IOException e) {
-//			e.printStackTrace();
-//		}
+//		 quit 프로토콜 구현
+		pw.println("quit");
+		// exit java(JVM)
+		try {
+			if(pw != null) {
+				pw.close();
+			}
+			if(br != null) {
+				br.close();
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
 //		
 		System.exit(0);
 	}
@@ -148,8 +149,24 @@ public class ChatWindow {
 		@Override
 		public void run() {
 			
+			try {
+			
+			while(true) {
+			String data = br.readLine();
+			
+			if(data == null) {
+				break;
+			}
 			sendMessage();
+		}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		}
+			
+			
 			
 		}
-	}
 }
