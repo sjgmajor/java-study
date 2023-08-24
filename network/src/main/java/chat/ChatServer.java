@@ -12,7 +12,6 @@ public class ChatServer {
 
 	public static final int PORT = 6666;	
 	
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		

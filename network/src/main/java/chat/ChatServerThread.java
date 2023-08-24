@@ -16,6 +16,8 @@ public class ChatServerThread extends Thread {
 	private Socket socket;
 	List<PrintWriter> chatUsers;
 	
+	public static int count = 0;
+	
 	public ChatServerThread( Socket socket, List<PrintWriter> chatUsers) {
 		   this.socket = socket;
 		   this.chatUsers = chatUsers;
@@ -36,24 +38,25 @@ public class ChatServerThread extends Thread {
 			InetSocketAddress remoteInetSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
 			String remoteHostAddress = remoteInetSocketAddress.getAddress().getHostAddress();
 			int remotePort = remoteInetSocketAddress.getPort();
+			log("connected by client[" + remoteHostAddress + ":" + remotePort + "]");
 
 			while( true ) {
 				
 				   String line = br.readLine();
+				   userSize = chatUsers.size() + 1;
 				   
 				   if( line == null ) {
-					   log( "클라이언트로 부터 연결 끊김" );
+					   log( "클라이언트로부터 연결 끊김" );
 					   doQuit(pw);
-				       break;
+					   break;
 				   }
-				   userSize = chatUsers.size() + 1;
+				   
 				   
 				   // 4. 프로토콜 분석
 				   
 				   String[] tokens = line.split(":");
 				
 				   if( "join".equals(tokens[0]) ) {
-					   log(userSize + "명 입장중입니다. [" + remoteHostAddress + ":" + remotePort + "]");
 					   doJoin(tokens[1], pw);
 				   } else if("message".equals(tokens[0])) {
 				      doMessage(tokens[1]);
@@ -61,7 +64,7 @@ public class ChatServerThread extends Thread {
 				      doQuit(pw);
 				      break;
 				   } else {
-				      log("에러:알수 없는 요청(" + tokens[0] + ")");
+				      log("에러:알수 없는 요청(" + tokens[0] + ")");				      
 				   }
 				}	
 			
@@ -81,7 +84,8 @@ public class ChatServerThread extends Thread {
 		   if( nickname !=null) {
 		   String data = nickname + "님이 퇴장 하였습니다."; 
 		   broadcast(data);
-		   
+		   count--;
+		   log(count + "명 입장중입니다.");
 		   }
 		}
 
@@ -98,6 +102,8 @@ public class ChatServerThread extends Thread {
 		  
 		   broadcast(data);
 		   
+		   count++;
+		   log(count + "명 입장중입니다.");
 		   /* writer pool에  저장 */ 
 		   addWriter(pw);
 		   
