@@ -133,17 +133,17 @@ public class ChatWindow {
         //quit 프로토콜 구현
 		// exit java(JVM)
 		try {
+			
 		if(socket != null && !socket.isClosed()) {
 			socket.close();
 		}
-		pw.println("quit");
+//		pw.println("quit");
 		System.exit(0);
 		} catch (IOException e) {
 			log("error:" + e);
 		}
 	}
 	
-
 	private void updateTextArea(String message) {
 		textArea.append(message);
 		textArea.append("\n");
@@ -159,18 +159,11 @@ public class ChatWindow {
 
 		@Override
 		public void run() {
-			
 			try {
 				 while(true) {
 					String data = br.readLine();
-					
-					if(data == null) {
-						log("closed by client");
-						break;
-					}
 					updateTextArea(data);
 				 }
-				
 			} catch (IOException e) {
 				log("error:" + e);
 			}
