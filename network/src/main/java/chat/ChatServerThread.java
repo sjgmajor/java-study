@@ -28,13 +28,14 @@ public class ChatServerThread extends Thread {
 		BufferedReader br = null;
 		
 		try {
-			InetSocketAddress remoteInetSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
-			String remoteHostAddress = remoteInetSocketAddress.getAddress().getHostAddress();
-			int remotePort = remoteInetSocketAddress.getPort();
 			
 			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
 			
+			
+			InetSocketAddress remoteInetSocketAddress = (InetSocketAddress) socket.getRemoteSocketAddress();
+			String remoteHostAddress = remoteInetSocketAddress.getAddress().getHostAddress();
+			int remotePort = remoteInetSocketAddress.getPort();
 
 			while( true ) {
 				
@@ -64,8 +65,6 @@ public class ChatServerThread extends Thread {
 				   }
 				}	
 			
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -91,10 +90,6 @@ public class ChatServerThread extends Thread {
 			chatUsers.remove(pw);
 		}
 
-
-	private static void log(String message) {
-		System.out.println("[서버] " + message);
-	}
 	
 	private void doJoin(String nickName, PrintWriter pw ) {
 		   this.nickname = nickName;
@@ -124,6 +119,10 @@ public class ChatServerThread extends Thread {
 	   synchronized(chatUsers) {
 		   chatUsers.add(pw);
 	   }
+	}
+
+	private static void log(String message) {
+		System.out.println("[서버] " + message);
 	}
 
 }

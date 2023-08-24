@@ -20,7 +20,6 @@ public class ChatClientApp {
 		Scanner scanner = new Scanner(System.in);
 		Socket socket = null;
 		
-		
 		while( true ) {
 			System.out.println("대화명을 입력하세요.");
 			System.out.print("> ");
@@ -41,31 +40,24 @@ public class ChatClientApp {
 	    log("connected");
 	    
 	    PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
-	    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
-		
+		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
+	    
 		//3. join protocol 진행
 		System.out.print("닉네임: " );
 	    nickname = scanner.nextLine();
+	    pw.println("join:" + nickname);
 		   
-	    String line = br.readLine();
-
-	    if("join:ok".equals(line)){
-			new ChatWindow(name, pw, br).show();
-	    	}
-	    
+	    String ack = br.readLine();
+	
+    	if("join:ok".equals(ack)){
+		new ChatWindow(name, socket).show();
+		} 
 		} catch(IOException e) {
 			System.out.println("[client] error: " + e);
 		} finally {
-			try {
-				if(socket != null && !socket.isClosed()) {
-					socket.close();
-				}
-				if(scanner != null) {
-					scanner.close();
-				}
-			} catch(IOException e){
-				e.printStackTrace();
-				}
+			if(scanner != null) {
+				scanner.close();
+			}
 		}
 	}
 	

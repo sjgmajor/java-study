@@ -15,7 +15,10 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.List;
 
 public class ChatWindow {
 
@@ -24,18 +27,22 @@ public class ChatWindow {
 	private Button buttonSend;
 	private TextField textField;
 	private TextArea textArea;
-	private int count = 0;
-	private PrintWriter pw = null;
-	private BufferedReader br = null;
+	
+	private String message;
+	private String name;
+	
+	private Socket socket;
+	private PrintWriter pw;
+	private BufferedReader br;
 
-	public ChatWindow(String name, PrintWriter pw, BufferedReader br) {
+	public ChatWindow(String name, Socket socket) {
 		frame = new Frame(name);
 		pannel = new Panel();
 		buttonSend = new Button("Send");
 		textField = new TextField();
 		textArea = new TextArea(30, 80);
-		this.pw = pw;
-		this.br = br;
+		this.name = name;
+		this.socket = socket;
 	}
 
 	public void show() {
@@ -48,7 +55,6 @@ public class ChatWindow {
 				sendMessage();
 			}
 		});
-		
 //		buttonSend.addActionListener((ActionEvent e) -> {
 //			
 //		});
@@ -81,92 +87,96 @@ public class ChatWindow {
 				finish();
 			}
 		});
+		
 		frame.setVisible(true);
 		frame.pack();
 		
 		//IOStream 받아오기
 		//ChatClientThread 생성하고 실행
-		new ChatClientThread().start();
-
+		
+		updateTextArea("채팅창에 입장하였습니다.");
+		updateTextArea("----------------------------");
+		updateTextArea("보낼 매세지를 입력하고 Enter");
+		updateTextArea("채팅을 종료하려면 quit를 입력하고 Enter");
+		updateTextArea("----------------------------");
+		
+		try {
+			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
+			new ChatClientThread(socket).start();
+			
+		} catch (IOException e) {
+			log("error:" + e);
+		} 
 	}
+	
 	private void sendMessage() {
+				message = textField.getText();
 				
-				if(count == 1) {
-					String message;
-					message = textField.getText();
+				if ((message.trim()).isEmpty() == false ) {
 					
-					textField.setText("");
-					textField.requestFocus();
-					
-					if("quit".equals(message)) {
+					if(message.equals("quit")) {
 						finish();
 					}
-					//ChatClinetThread에서 서버로부터 받는 메시지가 있다고 치고~~
-					if ((message.trim()).isEmpty() == false ) {
-				    System.out.println(ChatClientApp.nickname + "님이 메세지를 보내는 프로코톨 구현: " + message);
-					updateTextArea(ChatClientApp.nickname + ": " + message);				 
-					}
-					else {
-					updateTextArea("메세지는 한글자 이상 입력해야 합니다.");
-					}
-					
+				pw.println("message:" + message);
+				textField.setText("");
+				textField.requestFocus();
+				//ChatClinetThread에서 서버로부터 받는 메시지가 있다고 치고~~
+			    System.out.println(ChatClientApp.nickname + "님이 메세지를 보내는 프로코톨 구현: " + message);
 				}
-				if(count == 0) {
-					count = 1;
-					textField.setText("");
-					textField.requestFocus();
-					updateTextArea("채팅창에 입장하였습니다.");
-					updateTextArea("----------------------------");
-					updateTextArea("보낼 매세지를 입력하고 Enter");
-					updateTextArea("채팅을 종료하려면 quit를 입력하고 Enter");
-					updateTextArea("----------------------------");
+				else {
+					updateTextArea("메세지는 한글자 이상 입력해야 합니다.");
 				}
 	}
 	
 	private void finish() {
-//		 quit 프로토콜 구현
-		pw.println("quit");
+        //quit 프로토콜 구현
 		// exit java(JVM)
 		try {
-			if(pw != null) {
-				pw.close();
-			}
-			if(br != null) {
-				br.close();
-			}
-		} catch(IOException e) {
-			e.printStackTrace();
+		if(socket != null && !socket.isClosed()) {
+			socket.close();
 		}
-//		
+		pw.println("quit");
 		System.exit(0);
+		} catch (IOException e) {
+			log("error:" + e);
+		}
 	}
+	
+
 	private void updateTextArea(String message) {
 		textArea.append(message);
 		textArea.append("\n");
 	}
 	
 	private class ChatClientThread extends Thread{
+		
+		private Socket socket;
+
+		public ChatClientThread(Socket socket) {
+			this.socket = socket;
+		}
+
 		@Override
 		public void run() {
 			
 			try {
-			
-			while(true) {
-			String data = br.readLine();
-			
-			if(data == null) {
-				break;
+				 while(true) {
+					String data = br.readLine();
+					
+					if(data == null) {
+						log("closed by client");
+						break;
+					}
+					updateTextArea(data);
+				 }
+				
+			} catch (IOException e) {
+				log("error:" + e);
 			}
-			sendMessage();
 		}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		}
-			
-			
-			
-		}
+}
+	private static void log(String message) {
+		System.out.println("[클라이언트] " + message);
+	}
 }
