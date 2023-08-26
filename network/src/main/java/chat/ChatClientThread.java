@@ -28,15 +28,12 @@ public class ChatClientThread extends Thread {
 		}
 		System.out.println(data);
 	}
-		
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
-
 	}
 
 	private void log(String message) {
 		System.out.println("[클라이언트] " + message);
 	}
-
 }

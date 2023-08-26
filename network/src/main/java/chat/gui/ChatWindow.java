@@ -18,7 +18,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.List;
 
 public class ChatWindow {
 
@@ -118,11 +117,12 @@ public class ChatWindow {
 					if(message.equals("quit")) {
 						finish();
 					}
-				pw.println("message:" + message);
-				textField.setText("");
-				textField.requestFocus();
-				//ChatClinetThread에서 서버로부터 받는 메시지가 있다고 치고~~
-			    System.out.println(ChatClientApp.nickname + "님이 메세지를 보내는 프로코톨 구현: " + message);
+					
+					pw.println("message:" + message);
+					textField.setText("");
+					textField.requestFocus();
+					//ChatClinetThread에서 서버로부터 받는 메시지가 있다고 치고~~
+					System.out.println(ChatClientApp.nickname + "님이 메세지를 보내는 프로코톨 구현: " + message);
 				}
 				else {
 					updateTextArea("메세지는 한글자 이상 입력해야 합니다.");
@@ -133,12 +133,11 @@ public class ChatWindow {
         //quit 프로토콜 구현
 		// exit java(JVM)
 		try {
-			
-		if(socket != null && !socket.isClosed()) {
+			if(socket != null && !socket.isClosed()) {
 			socket.close();
-		}
-//		pw.println("quit");
-		System.exit(0);
+			}
+//			pw.println("quit");
+			System.exit(0);
 		} catch (IOException e) {
 			log("error:" + e);
 		}

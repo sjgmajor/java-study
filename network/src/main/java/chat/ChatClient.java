@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.List;
 import java.util.Scanner;
 

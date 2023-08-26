@@ -30,7 +30,6 @@ public class ChatServerThread extends Thread {
 		BufferedReader br = null;
 		
 		try {
-			
 			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "utf-8"), true);
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "utf-8"));
 			
@@ -41,23 +40,19 @@ public class ChatServerThread extends Thread {
 			log("connected by client[" + remoteHostAddress + ":" + remotePort + "]");
 
 			while( true ) {
-				
 				   String line = br.readLine();
-				   userSize = chatUsers.size() + 1;
 				   
 				   if( line == null ) {
-					   log( "클라이언트로부터 연결 끊김" );
+					   log( "클라이언트[" + remoteHostAddress + ":" + remotePort + "]" + "로부터 연결 끊김" );
 					   doQuit(pw);
 					   break;
 				   }
 				   
-				   
 				   // 4. 프로토콜 분석
-				   
 				   String[] tokens = line.split(":");
 				
 				   if( "join".equals(tokens[0]) ) {
-					   doJoin(tokens[1], pw);
+					  doJoin(tokens[1], pw);
 				   } else if("message".equals(tokens[0])) {
 				      doMessage(tokens[1]);
 				   } else if("quit".equals(tokens[0])) {
@@ -78,38 +73,19 @@ public class ChatServerThread extends Thread {
 		String data = this.nickname + ":" + message;
 		broadcast( data );
 	}
-
-	private void doQuit(PrintWriter pw) {
-		   removeWriter(pw);
-		   if( nickname !=null) {
-		   String data = nickname + "님이 퇴장 하였습니다."; 
-		   broadcast(data);
-		   count--;
-		   log(count + "명 입장중입니다.");
-		   }
-		}
-
-	private void removeWriter(PrintWriter pw) {
-		   /* 잘 구현 해보기 */	
-			chatUsers.remove(pw);
-		}
-
 	
 	private void doJoin(String nickName, PrintWriter pw ) {
-		   this.nickname = nickName;
-		   
+		
+	   	   this.nickname = nickName;
 		   String data = nickName + "님이 참여하였습니다."; 
 		  
 		   broadcast(data);
 		   
-		   count++;
-		   log(count + "명 입장중입니다.");
 		   /* writer pool에  저장 */ 
 		   addWriter(pw);
 		   
-		// ack
-		  pw.println("join:ok");
-
+		   // ack
+		   pw.println("join:ok");
 	}
 		
 	private void broadcast(String data) {
@@ -118,9 +94,21 @@ public class ChatServerThread extends Thread {
 			pWriter.println(data);
 		      }
 		   }
-
 	}
 
+	private void doQuit(PrintWriter pw) {
+		   removeWriter(pw);
+		   if( nickname !=null) {
+		   String data = nickname + "님이 퇴장 하였습니다."; 
+		   broadcast(data);
+		   }
+		}
+
+	private void removeWriter(PrintWriter pw) {
+		   /* 잘 구현 해보기 */	
+			chatUsers.remove(pw);
+		}
+	
 	private void addWriter(PrintWriter pw) {
 	   synchronized(chatUsers) {
 		   chatUsers.add(pw);
